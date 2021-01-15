@@ -128,6 +128,18 @@ export default class App extends Component {
 
     }
 
+    handleOnDragEnd = (result) => {
+        if (!result.destination) return;
+        const newArr = Array.from(this.state.todoData);
+        const [reorderedItem] = newArr.splice(result.source.index, 1);
+        newArr.splice(result.destination.index, 0, reorderedItem);
+        this.setState(({ todoData }) => {
+            return {
+                todoData: newArr
+            }
+        })
+    }
+
     render() {
         const { todoData, valueForm, error, isLoaded } = this.state
         if (error) {
@@ -153,6 +165,7 @@ export default class App extends Component {
                         onToggleImportant={this.onToggleImportant}
                         onToggleDone={this.onToggleDone}
                         onEdit={this.onEdit}
+                        handleOnDragEnd={this.handleOnDragEnd}
                     />
                 </div>
             )

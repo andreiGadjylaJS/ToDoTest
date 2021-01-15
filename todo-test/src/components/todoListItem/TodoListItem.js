@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './TodoListItem.css'
 
-
 export default class TodoListItem extends Component {
 
     onLabelClick = () => {
@@ -32,7 +31,6 @@ export default class TodoListItem extends Component {
             className += ' done';
         }
 
-
         return (
             <span className={className}>
                 <span
@@ -57,11 +55,9 @@ export default class TodoListItem extends Component {
                     className="btn btn-outline-primary btn-sm float-right"
                     onClick={onEdit}>
                     <i className="fa fa-edit small" />
-
                 </button>
             </span>
         )
-
     }
 }
 

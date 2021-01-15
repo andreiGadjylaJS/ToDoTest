@@ -5,21 +5,17 @@ import './TodoList.css'
 
 
 const TodoList = ({ todos, onDeleted, onToggleImportant, onToggleDone, onEdit, handleOnDragEnd }) => {
-    // const [characters, updateCharacters] = useState(todos);
-    // function handleOnDragEnd(result) {
-    //     if (!result.destination) return;
-    //     const items = Array.from(todos);
-    //     const [reorderedItem] = items.splice(result.source.index, 1);
-    //     items.splice(result.destination.index, 0, reorderedItem);
-    //     // updateCharacters(items);
-    // }
     const elements = todos.map((item, index) => {
         const { id, ...itemProps } = item
 
         return (
             <Draggable key={id} draggableId={String(id)} index={index}>
                 {(provided) => (
-                    <li className="list-group-item" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                    <li className="list-group-item"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}>
+
                         <TodoListItem
                             {...itemProps}
                             onDeleted={() => onDeleted(id)}
@@ -30,7 +26,6 @@ const TodoList = ({ todos, onDeleted, onToggleImportant, onToggleDone, onEdit, h
                     </li>
                 )}
             </Draggable>
-
         )
     })
 
@@ -46,6 +41,5 @@ const TodoList = ({ todos, onDeleted, onToggleImportant, onToggleDone, onEdit, h
             </Droppable>
         </DragDropContext>
     )
-
 }
 export default TodoList

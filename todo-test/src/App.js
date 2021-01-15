@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import AppHeader from '../appHeader'
-import ItemAddForm from '../itemAddForm'
-import TodoList from '../todoList'
-import TodoService from '../../services/TodoService'
+import AppHeader from './components/appHeader'
+import ItemAddForm from './components/itemAddForm'
+import TodoList from './components/todoList'
+import TodoService from './services/TodoService'
 import './App.css'
 
 export default class App extends Component {
@@ -21,7 +21,6 @@ export default class App extends Component {
                     error
                 })
             )
-
     }
 
     maxId = 100
@@ -36,14 +35,13 @@ export default class App extends Component {
 
     deleteItem = id => {
         this.setState(({ todoData }) => {
-            const newArray = todoData.filter(item => item.id !== id)
             return {
-                todoData: newArray
+                todoData: todoData.filter(item => item.id !== id)
             }
         })
     }
 
-    addItem = (text) => {
+    addItem = text => {
         this.setState(({ todoData }) => {
             const newItem = {
                 label: text,
@@ -103,6 +101,7 @@ export default class App extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
+
         if (this.state.valueForm && !this.state.isEditing) {
             this.addItem(this.state.valueForm)
             this.setState({ valueForm: "" })
@@ -122,18 +121,16 @@ export default class App extends Component {
                     valueForm: ""
                 }
             })
-
-
         } else return
 
     }
 
-    handleOnDragEnd = (result) => {
+    handleOnDragEnd = result => {
         if (!result.destination) return;
         const newArr = Array.from(this.state.todoData);
         const [reorderedItem] = newArr.splice(result.source.index, 1);
         newArr.splice(result.destination.index, 0, reorderedItem);
-        this.setState(({ todoData }) => {
+        this.setState(() => {
             return {
                 todoData: newArr
             }
@@ -142,6 +139,7 @@ export default class App extends Component {
 
     render() {
         const { todoData, valueForm, error, isLoaded } = this.state
+
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
